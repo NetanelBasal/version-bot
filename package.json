@@ -1,0 +1,59 @@
+{
+  "name": "version-bot",
+  "version": "0.0.0",
+  "description": "Slack bot integration with standard-release version management 🤖",
+  "main": "index.js",
+  "scripts": {
+    "release": "standard-version --infile ./CHANGELOG.md",
+    "commit": "git-cz",
+    "build": "npm run clean:dist && tsc && npm run copy:dist && npm run uglify",
+    "build:dev": "tsc && npm run copy:dist",
+    "uglify": "terser-folder dist -e -o dist -x .js",
+    "clean:dist": "rm -rf dist",
+    "copy:dist": "cp package.json package-lock.json README.md dist",
+    "prettier": "prettier --write 'src/**/*.ts' && prettier --write '__tests__/*.ts'"
+  },
+  "bin": {
+    "version-bot": "index.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://github.com/shaharkazaz/version-bot#readme",
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -e $GIT_PARAMS",
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run test"
+    }
+  },
+  "lint-staged": {
+    "*.{ts}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shaharkazaz/version-bot.git"
+  },
+  "keywords": [
+    "slack",
+    "bot",
+    "version",
+    "mangement"
+  ],
+  "author": "Shahar Kazaz",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "git-cz": "^4.3.1",
+    "husky": "^4.2.3",
+    "lint-staged": "^10.0.8",
+    "prettier": "^1.19.1",
+    "standard-version": "^7.1.0",
+    "terser": "^4.6.7",
+    "terser-folder": "^2.0.0",
+    "typescript": "^3.8.3"
+  }
+}
