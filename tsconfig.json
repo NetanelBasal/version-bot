@@ -8,6 +8,7 @@
       "esnext",
       "es2015"
     ],
+    "types": ["node"],
     "typeRoots": [],
     "sourceMap": true
   },
