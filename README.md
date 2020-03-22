@@ -49,7 +49,7 @@ Now your slack bot will start posting the version changes 🎉.
 
 These are the 3 available commands: 
 
-* `init` - Initializes the version-bot configuration.
+* `init` - 🌱 Initializes the version-bot configuration.
 * `build-message` - 🏗 Builds the changelog message for the slack bot, automatically runs as part of the [standard-version lifecycle scripts](https://github.com/conventional-changelog/standard-version#lifecycle-scripts) (if you ran the `init` command).
 * `post-message` - 📬 Sends the message to your slack bot.
 
