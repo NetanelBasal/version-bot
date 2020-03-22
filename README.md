@@ -1,4 +1,5 @@
 <p align="center">
+ <link href="https://fonts.googleapis.com/css?family=Audiowide&display=swap" rel="stylesheet">
  <img width="20%" height="20%" src="./logo.svg">
 </p>
 
@@ -50,6 +51,15 @@ The above command does the following:
 <img width="570px" height="130px" src="./bot-setup.png">
 
 * Updates/creates your standard-version configuration with the version bot config.
+```
+// your standard-version configuration location (package.json | .versionrc.json | .versionrc.js)
+{
+  ...
+  "version-bot": {
+    webHookLink: "<my link>"
+  }
+}
+```
 
 The last thing we need to do is run the `post-message` command after we publish our package:
 ```
@@ -98,10 +108,11 @@ In case nothing is provided, the [default](https://github.com/shaharkazaz/versio
 You can combine some environment params into your strings by using `{{paramName}}` syntax, for example:
 
 ```
-// you standard-version configuration location (package.json | .versionrc.json | .versionrc.js)
+// your standard-version configuration location (package.json | .versionrc.json | .versionrc.js)
 {
   ...
   "version-bot": {
+    webHookLink: "<my link>",
     footerMessage: "That's all for {{version}} release 🏁"
   }
 }
