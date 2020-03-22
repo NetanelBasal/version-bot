@@ -11,7 +11,8 @@ export function extractChangelogSections(ast: ASTNode): Sections {
   const documentItems = ast.children;
   const versionHeaderNode = documentItems[0].children[0];
   addParamValue({
-    compareChangesLink: versionHeaderNode.url
+    compareChangesLink: versionHeaderNode.url,
+    version: versionHeaderNode.children[0].value
   });
 
   const sections: Sections = {};

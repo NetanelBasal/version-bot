@@ -1,13 +1,9 @@
-import { getPackage } from './getPackage';
-
 type Params = {
-  version: string;
+  version?: string;
   compareChangesLink?: string;
 };
 
-let paramMap: Params = {
-  version: getPackage().version
-};
+let paramMap: Params = {};
 
 export function addParamValue(newParams: Partial<Params>) {
   paramMap = {

@@ -1,14 +1,16 @@
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import { getPackage } from './getPackage';
+import { getPackage } from '../package';
 import { ConfigOrigin } from '../types';
 
 let config;
 let origin: ConfigOrigin;
 
+type Options = {withOrigin?: boolean};
+
 export function getStandardVersionConfig(): any;
-export function getStandardVersionConfig(withOrigin: true): { config: any; origin: ConfigOrigin };
-export function getStandardVersionConfig(withOrigin = false): any | { config: any; origin: ConfigOrigin } {
+export function getStandardVersionConfig(options: {withOrigin: true}): { config: any; origin: ConfigOrigin };
+export function getStandardVersionConfig({withOrigin}: Options = {}): any | { config: any; origin: ConfigOrigin } {
   if (!config) {
     const possiblePaths: ConfigOrigin[] = ['.versionrc.json', '.versionrc.js'];
     const configFilePath = possiblePaths.find(p => fs.pathExistsSync(p));

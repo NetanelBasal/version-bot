@@ -1,5 +1,5 @@
 import * as conventionalChangelog from 'conventional-changelog';
-import { getPackage } from '../helpers/getPackage';
+import { getPackage } from '../package';
 import { getStandardVersionConfig } from '../helpers/getStandardVersionConfig';
 import * as presetLoader from 'standard-version/lib/preset-loader';
 import { parse as mdToAST } from '@textlint/markdown-to-ast';

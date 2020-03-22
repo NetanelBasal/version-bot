@@ -3,7 +3,7 @@ import * as fs from 'fs-extra';
 import { getStandardVersionConfig } from '../helpers/getStandardVersionConfig';
 import * as inquirer from 'inquirer';
 import { ConfigOrigin } from '../types';
-import { getPackage } from '../helpers/getPackage';
+import { getPackage } from '../package';
 import { writeJson } from '../helpers/writeJson';
 
 const defaultStandardVersionConfig = (webHookLink: string) => ({
@@ -113,7 +113,7 @@ export async function initBotConfiguration() {
   spinner.succeed('Added version-bot scripts to package.json');
   const webHookLink = await inquireWebHookLink();
   spinner = startSpinner('Searching for a standard-version configuration 🔎');
-  const { config, origin } = getStandardVersionConfig(true);
+  const { config, origin } = getStandardVersionConfig({withOrigin: true});
   let msg = config ? `Configuration found in ${origin} file` : 'Standard version configuration is missing';
   spinner.info(msg);
   if (config) {

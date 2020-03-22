@@ -8,6 +8,7 @@ import { postMessage } from './post-message/postMessage';
 import { initBotConfiguration } from './init/initBotConfiguration';
 import * as chalk from 'chalk';
 import { getStandardVersionConfig } from './helpers/getStandardVersionConfig';
+import {setPackage} from "./package";
 
 const mainDefinitions = [{ name: 'command', defaultOption: true }];
 
@@ -27,7 +28,9 @@ if (help) {
   console.log(usage);
   process.exit();
 }
+
 const { command } = mainOptions;
+setPackage(config.package);
 if (command === 'init') {
   initBotConfiguration();
 } else {
