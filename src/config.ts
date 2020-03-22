@@ -1,7 +1,7 @@
 import { Config } from './types';
 import * as debug from 'debug';
-import {defaultConfig} from "./defaultConfig";
-import {getStandardVersionConfig} from "./helpers/getStandardVersionConfig";
+import { defaultConfig } from './defaultConfig';
+import { getStandardVersionConfig } from './helpers/getStandardVersionConfig';
 
 let config: Config;
 let userConfig: Config;
@@ -9,7 +9,7 @@ let userConfig: Config;
 export function getConfig(): Config {
   if (!config) {
     userConfig = getStandardVersionConfig()['version-bot'] || {};
-    config = {...defaultConfig, ...userConfig};
+    config = { ...defaultConfig, ...userConfig };
   }
   if (debug.enabled('config')) {
     const log = debug('config');

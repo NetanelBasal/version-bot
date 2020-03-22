@@ -1,6 +1,4 @@
-export const optionDefinitions = [
-  { name: 'help', alias: 'h', type: Boolean, description: 'Help me, please!' }
-];
+export const optionDefinitions = [{ name: 'help', alias: 'h', type: Boolean, description: 'Help me, please!' }];
 
 export const sections = [
   {

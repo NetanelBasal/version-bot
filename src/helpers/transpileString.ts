@@ -1,19 +1,23 @@
-import {getPackage} from "./getPackage";
-import {HashMap} from "../types";
+import { getPackage } from './getPackage';
 
-let paramMap = {
-    version: getPackage().version
+type Params = {
+  version: string;
+  compareChangesLink?: string;
 };
 
-export function addParamValue(newParams: HashMap) {
-    paramMap = {
-        ...paramMap,
-        ...newParams
-    };
+let paramMap: Params = {
+  version: getPackage().version
+};
+
+export function addParamValue(newParams: Partial<Params>) {
+  paramMap = {
+    ...paramMap,
+    ...newParams
+  };
 }
 
 export function transpileString(str: string): string {
-    return Object.entries(paramMap).reduce((transpiled, [param, value]) => {
-        return transpiled.replace(new RegExp(`{{${param}}}`, 'g'), value);
-    }, str);
+  return Object.entries(paramMap).reduce((transpiled, [param, value]) => {
+    return transpiled.replace(new RegExp(`{{${param}}}`, 'g'), value);
+  }, str);
 }
