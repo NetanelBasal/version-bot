@@ -6,7 +6,7 @@
   "scripts": {
     "release": "standard-version --infile ./CHANGELOG.md",
     "commit": "git-cz",
-    "build": "npm run clean:dist && tsc && npm run copy:dist && npm run uglify && cd dist && npm link",
+    "build": "npm run clean:dist && tsc && npm run copy:dist && npm run uglify",
     "build:dev": "tsc && npm run copy:dist",
     "uglify": "terser-folder dist -e -o dist -x .js",
     "clean:dist": "rm -rf dist",

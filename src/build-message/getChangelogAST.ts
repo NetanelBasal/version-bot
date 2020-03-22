@@ -10,7 +10,7 @@ export function getChangelogAST(): Promise<ASTNode> {
     let markdown = '';
     const verionrc = getStandardVersionConfig();
     conventionalChangelog(
-      { preset: presetLoader(verionrc.preset), tagPrefix: 'v' },
+      { preset: presetLoader(verionrc), tagPrefix: 'v' },
       { version: getPackage().version },
       { merges: null }
     )

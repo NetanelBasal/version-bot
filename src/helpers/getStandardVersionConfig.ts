@@ -10,7 +10,7 @@ export function getStandardVersionConfig(): any;
 export function getStandardVersionConfig(withOrigin: true): { config: any; origin: ConfigOrigin };
 export function getStandardVersionConfig(withOrigin = false): any | { config: any; origin: ConfigOrigin } {
   if (!config) {
-    const possiblePaths = ['.versionrc.json', '.versionrc.js'];
+    const possiblePaths: ConfigOrigin[] = ['.versionrc.json', '.versionrc.js'];
     const configFilePath = possiblePaths.find(p => fs.pathExistsSync(p));
     if (!configFilePath) {
       const packageConfig = getPackage()['standard-version'];
@@ -22,7 +22,7 @@ export function getStandardVersionConfig(withOrigin = false): any | { config: an
       }
     } else {
       const isJson = configFilePath.endsWith('json');
-      origin = `.versionrc.${isJson ? 'json' : 'js'}` as ConfigOrigin;
+      origin = configFilePath;
       if (isJson) {
         config = fs.readJsonSync(configFilePath);
       } else {
