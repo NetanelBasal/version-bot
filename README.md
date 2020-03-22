@@ -1,4 +1,10 @@
-Version bot is here to complete the version management experience by hooking into [standard-version](https://github.com/conventional-changelog/standard-version) library and posting an readable, customizable changelog summary message right into your Slack channel!
+<p align="center">
+ <img width="20%" height="20%" src="./logo.svg">
+</p>
+
+So your company maintains a library, for example, a core components library. With each release, you have the overhead of updating everyone about the new features that have been added or fixed.
+
+No More! Using this library, you can hook into the [standard-version](https://github.com/conventional-changelog/standard-version) library and automatically post a clear and customizable CHANGE LOG message right into your Slack channel!
 
 <hr />
 
@@ -26,20 +32,34 @@ Initialize the version bot's configuration by running:
 version-bot init
 ```
 
-This command does the following:
-* Adds version bot scripts to you `package.json` ("version-bot:build-message", "version-bot:post-message")
-* Provide your slack bot [incoming webhooks link](https://api.slack.com/messaging/webhooks)
+The above command does the following:
+* Adds version bot scripts to you `package.json`
+```
+// package.json
+{
+  ...
+  "scripts": {
+    ...
+    "version-bot:build-message": "version-bot build-message",
+    "version-bot:post-message": "version-bot post-message"
+  }
+}
+```
+* Enter your slack bot [incoming webhooks link](https://api.slack.com/messaging/webhooks)
+
+<img width="570px" height="130px" src="./bot-setup.png">
+
 * Updates/creates your standard-version configuration with the version bot config.
 
 The last thing we need to do is run the `post-message` command after we publish our package:
 ```
 // package.json
 {
+  ...
+  "scripts": {
     ...
-    "scripts": {
-        ...
-        "publish": "npm publish && npm run version-bot:post-message"
-    }
+    "publish": "npm publish && npm run version-bot:post-message"
+  }
 }
 ```
 
@@ -49,9 +69,9 @@ Now your slack bot will start posting the version changes 🎉.
 
 These are the 3 available commands: 
 
-* `init` - 🌱 Initializes the version-bot configuration.
-* `build-message` - 🏗 Builds the changelog message for the slack bot, automatically runs as part of the [standard-version lifecycle scripts](https://github.com/conventional-changelog/standard-version#lifecycle-scripts) (if you ran the `init` command).
-* `post-message` - 📬 Sends the message to your slack bot.
+* `init` - Initializes the version-bot configuration.
+* `build-message` - Builds the changelog message for the slack bot, automatically runs as part of the [standard-version lifecycle scripts](https://github.com/conventional-changelog/standard-version#lifecycle-scripts) (if you ran the `init` command).
+* `post-message` - Sends the message to your slack bot.
 
 ## 🕹 Options
 
@@ -66,25 +86,30 @@ version-bot build-message -p src/my/path
 
 You can customize the bot's message header and footer via the version bot config (which is located with your `standard-version` config).
 
-What's customizable:
-```ts
-  headerMessages?: string[] - An array of possible headers for the bot to choose randonly from. 
-  footerMessage?: string - The bot's closing message. 
+```
+  headerMessages?: string[] - An array of possible headers for the bot to choose randomly from. 
+  footerMessage?: string - The bot's closing message.
 ```
 
-In case none of these properties were provided we will use the [default config](https://github.com/shaharkazaz/version-bot/blob/master/src/defaultConfig.ts).
+In case nothing is provided, the [default](https://github.com/shaharkazaz/version-bot/blob/master/src/defaultConfig.ts) will be used.
 
-#### Accessing environment parameters 
+#### Accessing Environment Parameters 
 
-You can combine some environment params into your strings! by using `{{paramName}}` syntax, for example:
+You can combine some environment params into your strings by using `{{paramName}}` syntax, for example:
 
 ```
-Version {{version}} has just landed 🚀:
+// you standard-version configuration location (package.json | .versionrc.json | .versionrc.js)
+{
+  ...
+  "version-bot": {
+    footerMessage: "That's all for {{version}} release 🏁"
+  }
+}
 ```
 
-Will resolve in:
+Will resolve in the following footer message:
 ```
-Version 1.0.0 has just landed 🚀:
+"That's all for 1.0.0 release 🏁"
 ```
 
 Currently supported params:
