@@ -1,5 +1,4 @@
 <p align="center">
- <link href="https://fonts.googleapis.com/css?family=Audiowide&display=swap" rel="stylesheet">
  <img width="20%" height="20%" src="./logo.svg">
 </p>
 
