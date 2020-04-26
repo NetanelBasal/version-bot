@@ -2,12 +2,25 @@ import { ASTNode, SectionItem } from '../types';
 
 export function getSectionItems(listNode: ASTNode): SectionItem[] {
   return listNode.children.map(listItemNode => {
-    const [title, commitLink, closesIssue, issueLink] = listItemNode.children[0].children;
-    const sectionItem: SectionItem = {
-      title: title.value,
-      commitLink: commitLink
-    };
-    const isLinkedToIssue = closesIssue.value.includes('closes');
+    const {children} = listItemNode.children[0];
+    let title = '';
+    let i: number;
+    for (i = 0; i < children.length; i++) {
+      const node = children[i];
+      if (node.type === 'Link') {
+        break;
+      }
+      switch (node.type) {
+        case "Strong":
+          title += `*${node.children[0].value}*`;
+          break;
+        default:
+          title += node.value;
+      }
+    }
+    const [commitLink, closesIssue, issueLink] = children.slice(1);
+    const sectionItem: SectionItem = { title, commitLink };
+    const isLinkedToIssue = closesIssue && closesIssue.value && closesIssue.value.includes('closes');
     if (isLinkedToIssue) {
       sectionItem.issueLink = issueLink;
     }
