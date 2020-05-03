@@ -33,7 +33,7 @@ function formatSectionItemToString(item: SectionItem, emoji: string) {
 }
 
 function extractEmojiFromItem(item: SectionItem) {
-  const [emoji] = item.title.match(emojiRegex) || [];
+  const [emoji] = item.title.match(emojiRegex) || [''];
 
   return emoji;
 }
@@ -41,7 +41,7 @@ function extractEmojiFromItem(item: SectionItem) {
 function getSectionMessage(title: string, items: SectionItem[]) {
   const sectionEmoji = extractEmojiFromItem(items[0]);
   const itemsAsSlackList = items.map(i => formatSectionItemToString(i, sectionEmoji)).join('\n');
-  
+
   return `*${sectionEmoji} ${title}*:\n${itemsAsSlackList}`;
 }
 
