@@ -2,7 +2,7 @@ import { ASTNode, SectionItem } from '../types';
 
 export function getSectionItems(listNode: ASTNode): SectionItem[] {
   return listNode.children.map(listItemNode => {
-    const {children} = listItemNode.children[0];
+    const { children } = listItemNode.children[0];
     let title = '';
     let i: number;
     for (i = 0; i < children.length; i++) {
@@ -11,14 +11,14 @@ export function getSectionItems(listNode: ASTNode): SectionItem[] {
         break;
       }
       switch (node.type) {
-        case "Strong":
+        case 'Strong':
           title += `*${node.children[0].value}*`;
           break;
         default:
           title += node.value;
       }
     }
-    const [commitLink, closesIssue, issueLink] = children.slice(1);
+    const [commitLink, closesIssue, issueLink] = children.slice(i);
     const sectionItem: SectionItem = { title, commitLink };
     const isLinkedToIssue = closesIssue && closesIssue.value && closesIssue.value.includes('closes');
     if (isLinkedToIssue) {

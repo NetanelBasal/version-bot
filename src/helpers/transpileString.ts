@@ -1,6 +1,7 @@
 type Params = {
   version?: string;
   compareChangesLink?: string;
+  packageName?: string;
 };
 
 let paramMap: Params = {};
