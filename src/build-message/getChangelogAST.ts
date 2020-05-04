@@ -8,9 +8,11 @@ import { ASTNode } from '../types';
 export function getChangelogAST(): Promise<ASTNode> {
   return new Promise((resolve, reject) => {
     let markdown = '';
-    const verionrc = getStandardVersionConfig();
+    const versionrc = getStandardVersionConfig();
+    const tagPrefix = versionrc['tag-prefix'] || 'v';
+
     conventionalChangelog(
-      { preset: presetLoader(verionrc), tagPrefix: 'v' },
+      { preset: presetLoader(versionrc), tagPrefix },
       { version: getPackage().version },
       { merges: null }
     )
