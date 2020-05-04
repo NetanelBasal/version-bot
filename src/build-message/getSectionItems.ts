@@ -5,11 +5,9 @@ export function getSectionItems(listNode: ASTNode): SectionItem[] {
     const { children } = listItemNode.children[0];
     let title = '';
     let i: number;
-    let commitLink;
     for (i = 0; i < children.length; i++) {
       const node = children[i];
       if (node.type === 'Link') {
-        commitLink = node;
         break;
       }
       switch (node.type) {
@@ -20,7 +18,7 @@ export function getSectionItems(listNode: ASTNode): SectionItem[] {
           title += node.value;
       }
     }
-    const [closesIssue, issueLink] = children.slice(2);
+    const [commitLink, closesIssue, issueLink] = children.slice(i);
     const sectionItem: SectionItem = { title, commitLink };
     const isLinkedToIssue = closesIssue && closesIssue.value && closesIssue.value.includes('closes');
     if (isLinkedToIssue) {
