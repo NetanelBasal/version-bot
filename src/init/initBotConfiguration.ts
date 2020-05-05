@@ -1,10 +1,10 @@
-import * as ora from 'ora';
 import * as fs from 'fs-extra';
-import { getStandardVersionConfig } from '../helpers/getStandardVersionConfig';
 import * as inquirer from 'inquirer';
-import { ConfigOrigin } from '../types';
-import { getPackage } from '../package';
+import * as ora from 'ora';
+import { getStandardVersionConfig } from '../helpers/getStandardVersionConfig';
 import { writeJson } from '../helpers/writeJson';
+import { getPackage } from '../package';
+import { ConfigOrigin } from '../types';
 
 const defaultStandardVersionConfig = (webHookLink: string) => ({
   scripts: {
@@ -53,11 +53,17 @@ function createVersionFile(file: '.versionrc.json' | '.versionrc.js', webHookLin
 }
 
 function updateConfigurationFile(config, origin: ConfigOrigin, webHookLink: string) {
-  const prechangelog = config.scripts?.prechangelog;
-  if (prechangelog) {
-    config.scripts.prechangelog = `${prechangelog} && npm run version-bot:build-message`;
-  }
+  const script = `npm run version-bot:build-message`;
+  const current = config.scripts?.prechangelog;
+  const updated = (current && `${current} && ${script}`) || `${script}`;
+
+  config.scripts = {
+    ...config.scripts,
+    prechangelog: updated
+  };
+
   config['version-bot'] = { webHookLink };
+
   switch (origin) {
     case 'package.json':
       writeToPackage({
@@ -113,7 +119,7 @@ export async function initBotConfiguration() {
   spinner.succeed('Added version-bot scripts to package.json');
   const webHookLink = await inquireWebHookLink();
   spinner = startSpinner('Searching for a standard-version configuration 🔎');
-  const { config, origin } = getStandardVersionConfig({withOrigin: true});
+  const { config, origin } = getStandardVersionConfig({ withOrigin: true });
   let msg = config ? `Configuration found in ${origin} file` : 'Standard version configuration is missing';
   spinner.info(msg);
   if (config) {
