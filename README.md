@@ -1,2 +1,2 @@
 # version-bot
-Slack bot integration with standard-release version management 🤖
+Slack bot integration with standard-release version management 🤖 avocado
